@@ -4,8 +4,8 @@ require 'string_clusterer/binning/fingerprint_keyer'
 
 describe StringClusterer::Binning::FingerprintKeyer do
   describe '#key' do
-    it 'returns key by fingerprint method' do
-      names = [
+    before do
+      @names = [
         "Ricardo Néstor MARTINEZ",
         "RAMÓN ANTONIO ERLÁN",
         "Ramón Antonio Erlán",
@@ -23,9 +23,11 @@ describe StringClusterer::Binning::FingerprintKeyer do
         "RICARDO NÉSTOR MARTÍNEZ",
       ]
 
-      clusters = names.group_by do |n|
-        StringClusterer::Binning::FingerprintKeyer.new(n).key
-      end
+      @keyer = StringClusterer::Binning::FingerprintKeyer.new
+    end
+
+    it 'returns key by fingerprint method' do
+      clusters = @names.group_by { |n| @keyer.key(n) }
 
       assert clusters["antonio erlan ramon"]
       assert_equal [

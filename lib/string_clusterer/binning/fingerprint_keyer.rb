@@ -1,10 +1,9 @@
 # encoding: utf-8
-require 'string_clusterer/binning/keyer'
 require 'unicode_utils/downcase'
 
 module StringClusterer
   module Binning
-    class FingerprintKeyer < Keyer
+    class FingerprintKeyer
       PUNCT_CTRL_RE = /\p{Punct}|\p{Cntrl}/
       SPACE_RE = /[[:space:]]+/
 
@@ -13,8 +12,8 @@ module StringClusterer
         "aaaaaaaaaaaaaaaaaaccccccccccddddddeeeeeeeeeeeeeeeeeegggggggghhhhiiiiiiiiiiiiiiiiiijjkkkllllllllllnnnnnnnnnnnoooooooooooooooooorrrrrrsssssssssttttttuuuuuuuuuuuuuuuuuuuuwwyyyyyyzzzzzz"
       ]
 
-      def key
-        UnicodeUtils.downcase(@string.gsub(SPACE_RE, ' ').strip)
+      def key(string)
+        UnicodeUtils.downcase(string.gsub(SPACE_RE, ' ').strip)
                     .gsub(PUNCT_CTRL_RE, '')
                     .split
                     .uniq
