@@ -1,6 +1,10 @@
 # StringClusterer
 
-TODO: Write a gem description
+String clustering algorithms, taken from the ones available in [OpenRefine](https://github.com/OpenRefine/OpenRefine).
+
+*[2013-09-20] Only **binning with fingerprint keyer** exists.*
+
+For more in-depth info about these clustering methods, check the [OpenRefine wiki](https://github.com/OpenRefine/OpenRefine/wiki/Clustering-In-Depth).
 
 ## Installation
 
@@ -18,7 +22,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'string_clusterer'
+
+keyer = StringClusterer::Binning::FingerprintKeyer.new
+clusters = %w{Román Ramon Ramón Sáenz Saénz}.group_by { |n| keyer.key(n) }
+# => {"roman" => ["Román"], "ramon"=>["Ramon", "Ramón"], "saenz"=>["Sáenz", "Saénz"]}
+```
 
 ## Contributing
 
